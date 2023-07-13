@@ -1,29 +1,52 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.LinkedList;
-import java.util.StringTokenizer;
-
-public class N1021 {
-    private static int N, M;
-    private static int count= 0;
-    private static LinkedList<Integer> queue= new LinkedList<>();
-    
-    public static void main(String[] args) throws Exception {
-        try(BufferedReader br= new BufferedReader(new InputStreamReader(System.in))){
-            StringTokenizer tokenizer= new StringTokenizer(br.readLine());
-            
-            N= Integer.parseInt(tokenizer.nextToken());
-            M= Integer.parseInt(tokenizer.nextToken());
-
-            tokenizer= new StringTokenizer(br.readLine());
-
-            int[] temp= new int[M];
-            for(int i=0; i< M; i++){
-                temp[i] = Integer.parseInt(tokenizer.nextToken());
-            }
-
-            for(int i=1; i<=N; i++)
-                queue.add(i);
+2
+public class MyClass {
+    public static void main(String args[]) {
+        Scanner sc= new Scanner(System.in);
+        LinkedList<Integer> deque= new LinkedList<Integer>();
+        int count=0;
+        int N= sc.nextInt();
+        int M= sc.nextInt();
+        
+        for(int i=1; i<=N; i++){
+            deque.offer(i);
         }
+        
+        int[] seq= new int[M];
+        
+        for(int i=0; i< M; i++){
+            seq[i]= sc.nextInt();
+        }
+        
+        for(int i=0; i<M; i++){
+            int target_idx= deque.indexOf(seq[i]);
+            int half_idx;
+            if(deque.size() % 2 == 0){
+                half_idx= deque.size() / 2 - 1;
+            }else{
+                half_idx= deque.size() / 2; 
+            }
+            
+            // conditon 2
+            if(target_idx <= half_idx){
+                for(int j=0; j<target_idx; j++){
+                    int temp= deque.pollFirst();
+                    deque.offerLast(temp);
+                    count++;
+                }
+            }else{
+                // condition 3
+                for(int j=0; j< deque.size() - target_idx; j++){
+                    int temp= deque.pollLast();
+                    deque.offerFirst(temp);
+                    count++;
+                }
+            }
+            
+            deque.pollFirst();
+        }
+        
+        System.out.println(count);
     }
 }
