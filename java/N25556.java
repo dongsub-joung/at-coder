@@ -1,5 +1,6 @@
-//https://risk-boy.github.io/boj/25556/
 // 포스택
+// https://www.acmicpc.net/problem/25556
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
