@@ -9,7 +9,7 @@ for i in range(n):
     if len(arr)>num:
         answer.append(arr.pop(num))
         num+= k-1
-    else len(arr) <= num:
+    elif len(arr) <= num:
         num= num % len(arr)
         answer.append(arr.pop(num))
         num+= k-1

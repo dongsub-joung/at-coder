@@ -1,3 +1,5 @@
+// 요세푸스 문제
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
