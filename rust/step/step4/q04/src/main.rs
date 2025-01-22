@@ -13,8 +13,8 @@ fn main() {
         cnt-=1;
     }
 
-    let max= v.iter().max().unwrap();
-    let max_index= v.iter().filter(|f| *f== max).count();
+    let max= v.iter().clone().max().unwrap().clone();
+    let max_index= v.iter().find(|f| **f== max).unwrap();
 
     println!("{}", max);
     println!("{}", max_index);
