@@ -1,3 +1,5 @@
+// DP - https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/coin_change.rs
+
 use std::io::{stdin, BufRead};
 
 fn main() {
@@ -19,17 +21,33 @@ fn main() {
         items.push(each_itme);
     }
 
-    let mut max_number= 0;
-    let mut amount_kg=0;
-    for i in 0..items.len()-1{
-        for j in 0..items[0].len(){
-            let value= items[i][1] + items[i+1][1];
-            let kg= items[i][0]+ items[i+1][0];
-            if max_number > value {
-                max_number= value;
+    let mut item_values: Vec<Vec<Option<i32>>>= Vec::new();
+
+    let n= range_input[0];
+    let k= range_input[1];
+    for i in 0..n {
+        let mut base: Vec<Option<i32>> = vec![None; k as usize];
+        item_values.push(base);
+    }
+
+    for k_idx in 1..k {
+        for i in 1..n {
+            item_values[i as usize][k as usize]= item_values[(i as usize)-1][k as usize];
+            if k_idx - items[i as usize][0] >= 0 {
+                let value1= items[i as usize][1];
+
+                let value2= item_values[(i as usize) - 1][(k as usize) - (items[i as usize][0] as usize)];
+                let unwrap_option= match value2{
+                    Some(e) => e,
+                    None => 0,
+                };
+
+                let result= value1 + unwrap_option;
+                item_values[i as usize][k as usize]= item_values[(i as usize)-1][k as usize]
+                    .max(Some(result));
             }
         }
     }
 
-    println!("{}", max_number);
+    println!("{:#?}", item_values[n as usize][k as usize]);
 }
